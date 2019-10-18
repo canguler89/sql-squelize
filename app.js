@@ -22,7 +22,7 @@ app.get('/', (req,res)=> res.send('dasdada'))
 
 // Gig routes 
 app.use('/gigs', require('./routes/gigs'));
-  
+   
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, console.log(`server start here ${PORT}`));
+app.listen(PORT, console.log(`server start here ${PORT}`)); 

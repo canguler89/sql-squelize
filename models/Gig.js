@@ -13,7 +13,7 @@ const Gig = sequelize.define('gig', {
     },
     description:{
         type: Sequelize.STRING
-    }
+    } 
 })
 
 module.exports = Gig;
