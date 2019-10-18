@@ -7,17 +7,19 @@ const Gig = require('../models/Gig');
 router.get('/',(req,res)=> 
     Gig.findAll()
         .then(gigs => {
-            console.log(gigs);
-            res.sendStatus(200);
+            res.render('gigs',{
+                gigs:gigs
+            });
         })
         .catch(err => console.log(err)));
-    
+    // display add gig form
+router.get('/add', (req,res)=> res.render('add'));
 // add a gig
-router.get('/add',(req,res)=> {
+router.post('/add',(req,res)=> {
     const data = {
-        title:'Looking for a react developer',
-        technology:'react,JS,html,css',
-        budget:'$3000',
+        title:'Simple wordpress website',
+        technology:'wordpress,PHP,html,css',
+        budget:'$10000',
         description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
     }
     let {title,technology,budget,description} = data;

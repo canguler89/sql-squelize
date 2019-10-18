@@ -7,7 +7,13 @@ const path = require("path");
 const sequelize = require('./config/database');
 
 const app = express();
-
+// handlebars
+app.engine('handlebars',exphbs({defaultLayout:'main'}));
+app.set('view engine', 'handlebars');
+// set static folder
+app.use(express.static(path.join(__dirname, 'public')));
+// index router
+app.get('/',(req,res)=> res.render('index',{layout:'landing'}));
 // testing db
 sequelize
   .authenticate()
