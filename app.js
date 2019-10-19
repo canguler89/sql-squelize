@@ -10,6 +10,8 @@ const app = express();
 // handlebars
 app.engine('handlebars',exphbs({defaultLayout:'main'}));
 app.set('view engine', 'handlebars');
+// body parser
+app.use(bodyParser.urlencoded({extended:false}));
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')));
 // index router
@@ -23,8 +25,6 @@ sequelize
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-
-app.get('/', (req,res)=> res.send('dasdada'))
 
 // Gig routes 
 app.use('/gigs', require('./routes/gigs'));

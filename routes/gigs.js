@@ -16,14 +16,37 @@ router.get('/',(req,res)=>
 router.get('/add', (req,res)=> res.render('add'));
 // add a gig
 router.post('/add',(req,res)=> {
-    const data = {
-        title:'Simple wordpress website',
-        technology:'wordpress,PHP,html,css',
-        budget:'$10000',
-        description:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry'
+    let {title,technology,budget,description} = req.body;
+    let errors = [];
+
+    if(!title){
+        errors.push({text: 'Please add a title'})
     }
-    let {title,technology,budget,description} = data;
-    // insert into table
+    if(!technology){
+        errors.push({text: 'Please add a technology'})
+    }
+    if(!description){
+        errors.push({text: 'Please add a description'})
+    }
+  
+    // check errors
+    if(errors.length >0){
+        res.render('add', {
+            errors, 
+            title,
+            technology,
+            budget,
+            description
+        });
+    }else{
+        if(!budget){
+            budget = 'Unknown';
+        }else {
+            budget = `$${budget}`;
+        }
+        // make lower case
+        technology = technology.toLowerCase().replace(/, /g, ',');
+        // insert into table
     Gig.create({
         title, 
         technology,
@@ -33,7 +56,13 @@ router.post('/add',(req,res)=> {
         .then(gig => res.redirect('/gigs'))
         .catch(err => console.log(err));
 
+    }
+
+
 });
+
+// serach for gigs
+
 
 module.exports = router;
   
